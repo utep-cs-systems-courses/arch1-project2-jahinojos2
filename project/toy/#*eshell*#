@@ -1,0 +1,799 @@
+Welcome to the Emacs shell
+
+~/Desktop/arch1-project2-jahinojos2/project/timerLib $ ls
+#Makefile#  Makefile  clocksTimer.c  clocksTimer.h  clocksTimer.o  libTimer.h  sr.h  sr.o  sr.s
+~/Desktop/arch1-project2-jahinojos2/project/timerLib $ make install
+msp430-elf-ar crs libTimer.a clocksTimer.o sr.o
+mkdir -p ../h ../lib
+mv libTimer.a ../lib
+cp *.h ../h
+~/Desktop/arch1-project2-jahinojos2/project/timerLib $ cd ..
+~/Desktop/arch1-project2-jahinojos2/project $ ls
+Makefile  Makefile~  README.md  h  lib  main.c~  switches.c~  switches.h~  timerLib  toy
+~/Desktop/arch1-project2-jahinojos2/project $ cd toy
+~/Desktop/arch1-project2-jahinojos2/project/toy $ make load
+msp430-elf-gcc -mmcu=msp430g2553 -I../h   -c -o p2_interrupt_handler.o p2_interrupt_handler.c
+In file included from p2_interrupt_handler.c:2:
+switches.h:1: error: unterminated #ifndef
+ #ifndef switches_included
+ 
+p2_interrupt_handler.c: In function 'Port_1':
+p2_interrupt_handler.c:8:5: warning: implicit declaration of function 'switch_interrupt_handler'; did you mean 'switch_interreput_handler'? [-Wimplicit-function-declaration]
+     switch_interrupt_handler();
+     ^~~~~~~~~~~~~~~~~~~~~~~~
+     switch_interreput_handler
+make: *** [<builtin>: p2_interrupt_handler.o] Error 1
+~/Desktop/arch1-project2-jahinojos2/project/toy $ make load
+msp430-elf-gcc -mmcu=msp430g2553 -I../h   -c -o p2_interrupt_handler.o p2_interrupt_handler.c
+In file included from p2_interrupt_handler.c:2:
+switches.h:1: error: unterminated #ifndef
+ #ifndef switches_included
+ 
+make: *** [<builtin>: p2_interrupt_handler.o] Error 1
+~/Desktop/arch1-project2-jahinojos2/project/toy $ 
+~/Desktop/arch1-project2-jahinojos2/project/toy $ make load
+msp430-elf-gcc -mmcu=msp430g2553 -I../h   -c -o p2_interrupt_handler.o p2_interrupt_handler.c
+In file included from p2_interrupt_handler.c:2:
+switches.h:1: error: unterminated #ifndef
+ #ifndef switches_included
+ 
+make: *** [<builtin>: p2_interrupt_handler.o] Error 1
+~/Desktop/arch1-project2-jahinojos2/project/toy $ make load
+msp430-elf-gcc -mmcu=msp430g2553 -I../h   -c -o p2_interrupt_handler.o p2_interrupt_handler.c
+msp430-elf-gcc -mmcu=msp430g2553 -I../h   -c -o led.o led.c
+led.c: In function 'led_init':
+led.c:13:12: error: 'LEDS' undeclared (first use in this function); did you mean 'SELS'?
+   P1DIR |= LEDS;
+            ^~~~
+            SELS
+led.c:13:12: note: each undeclared identifier is reported only once for each function it appears in
+led.c: In function 'led_update':
+led.c:22:20: error: 'LEDS' undeclared (first use in this function); did you mean 'SELS'?
+     P1OUT &= (0xff^LEDS) ledFlags;
+                    ^~~~
+                    SELS
+led.c:22:25: error: expected ';' before 'ledFlags'
+     P1OUT &= (0xff^LEDS) ledFlags;
+                         ^~~~~~~~~
+                         ;
+led.c:24:5: error: 'led_changed' undeclared (first use in this function); did you mean 'leds_change'?
+     led_changed = 0;
+     ^~~~~~~~~~~
+     leds_change
+make: *** [<builtin>: led.o] Error 1
+~/Desktop/arch1-project2-jahinojos2/project/toy $ make load
+msp430-elf-gcc -mmcu=msp430g2553 -I../h   -c -o led.o led.c
+msp430-elf-gcc -mmcu=msp430g2553 -I../h   -c -o switches.o switches.c
+switches.c: In function 'switch_init':
+switches.c:19:12: error: 'SWTICHES' undeclared (first use in this function); did you mean 'SWITCHES'?
+   P2REN |= SWTICHES;
+            ^~~~~~~~
+            SWITCHES
+switches.c:19:12: note: each undeclared identifier is reported only once for each function it appears in
+switches.c: In function 'interrupt_handler':
+switches.c:36:3: error: 'S4_down' undeclared (first use in this function); did you mean 's4_down'?
+   S4_down = (p1val & S4) ? 0:1;
+   ^~~~~~~
+   s4_down
+switches.c:48:5: error: 'switch_state_down' undeclared (first use in this function); did you mean 'switch_state_changed'?
+     switch_state_down = 1;
+     ^~~~~~~~~~~~~~~~~
+     switch_state_changed
+make: *** [<builtin>: switches.o] Error 1
+~/Desktop/arch1-project2-jahinojos2/project/toy $ make load
+msp430-elf-gcc -mmcu=msp430g2553 -I../h   -c -o switches.o switches.c
+switches.c: In function 'switch_init':
+switches.c:19:12: error: 'SWTICHES' undeclared (first use in this function); did you mean 'SWITCHES'?
+   P2REN |= SWTICHES;
+            ^~~~~~~~
+            SWITCHES
+switches.c:19:12: note: each undeclared identifier is reported only once for each function it appears in
+make: *** [<builtin>: switches.o] Error 1
+~/Desktop/arch1-project2-jahinojos2/project/toy $ make load
+msp430-elf-gcc -mmcu=msp430g2553 -I../h   -c -o switches.o switches.c
+msp430-elf-gcc -mmcu=msp430g2553 -I../h   -c -o main.o main.c
+main.c: In function 'main':
+main.c:10:3: warning: implicit declaration of function 'enableWDTInterrups'; did you mean 'enableWDTInterrupts'? [-Wimplicit-function-declaration]
+   enableWDTInterrups();
+   ^~~~~~~~~~~~~~~~~~
+   enableWDTInterrupts
+msp430-elf-gcc -mmcu=msp430g2553 -I../h -L/opt/ti/msp430_gcc/include -o button.elf p2_interrupt_handler.o led.o switches.o main.o ../lib/libTimer.a
+p2_interrupt_handler.o: In function `Port_2':
+p2_interrupt_handler.c:(.text+0x36): undefined reference to `switch_interrupt_handler'
+switches.o: In function `switch_init':
+switches.c:(.text+0x8c): undefined reference to `switch_interrupt_handler'
+main.o: In function `main':
+main.c:(.text+0xe): undefined reference to `enableWDTInterrups'
+collect2: error: ld returned 1 exit status
+make: *** [Makefile:17: button.elf] Error 1
+~/Desktop/arch1-project2-jahinojos2/project/toy $ make load
+msp430-elf-gcc -mmcu=msp430g2553 -I../h   -c -o main.o main.c
+msp430-elf-gcc -mmcu=msp430g2553 -I../h -L/opt/ti/msp430_gcc/include -o button.elf p2_interrupt_handler.o led.o switches.o main.o ../lib/libTimer.a
+p2_interrupt_handler.o: In function `Port_2':
+p2_interrupt_handler.c:(.text+0x36): undefined reference to `switch_interrupt_handler'
+switches.o: In function `switch_init':
+switches.c:(.text+0x8c): undefined reference to `switch_interrupt_handler'
+collect2: error: ld returned 1 exit status
+make: *** [Makefile:17: button.elf] Error 1
+~/Desktop/arch1-project2-jahinojos2/project/toy $ make load
+msp430-elf-gcc -mmcu=msp430g2553 -I../h   -c -o switches.o switches.c
+msp430-elf-gcc -mmcu=msp430g2553 -I../h -L/opt/ti/msp430_gcc/include -o button.elf p2_interrupt_handler.o led.o switches.o main.o ../lib/libTimer.a
+msp430loader.sh button.elf
+check Bus 002 Device 005: ID 0451:f432 Texas Instruments, Inc. eZ430 Development Tool
+Detected ez430 dev kit
+mspdebug rf2500 "prog  button.elf "
+MSPDebug version 0.21 - debugging tool for MSP430 MCUs
+Copyright (C) 2009-2012 Daniel Beer <dlbeer@gmail.com>
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+Trying to open interface 1 on 005
+Initializing FET...
+FET protocol version is 30394216
+Set Vcc: 3000 mV
+Configured for Spy-Bi-Wire
+Device ID: 0x2553
+  Code start address: 0xc000
+  Code size         : 16384 byte = 16 kb
+  RAM  start address: 0x200
+  RAM  end   address: 0x3ff
+  RAM  size         : 512 byte = 0 kb
+Device: MSP430G2553/G2403
+Number of breakpoints: 2
+fet: FET returned NAK
+warning: device does not support power profiling
+Chip ID data: 25 53
+Erasing...
+Programming...
+Writing    2 bytes at ffe6 [section: __interrupt_vector_4]...
+Writing    2 bytes at fffe [section: __reset_vector]...
+Writing    4 bytes at c000 [section: .rodata2]...
+Writing  878 bytes at c004 [section: .text]...
+Writing    6 bytes at c372 [section: .data]...
+Done, 892 bytes total
+~/Desktop/arch1-project2-jahinojos2/project/toy $ make load
+msp430-elf-gcc -mmcu=msp430g2553 -I../h   -c -o p2_interrupt_handler.o p2_interrupt_handler.c
+msp430-elf-gcc -mmcu=msp430g2553 -I../h -L/opt/ti/msp430_gcc/include -o button.elf p2_interrupt_handler.o led.o switches.o main.o ../lib/libTimer.a
+msp430loader.sh button.elf
+check Bus 002 Device 005: ID 0451:f432 Texas Instruments, Inc. eZ430 Development Tool
+Detected ez430 dev kit
+mspdebug rf2500 "prog  button.elf "
+MSPDebug version 0.21 - debugging tool for MSP430 MCUs
+Copyright (C) 2009-2012 Daniel Beer <dlbeer@gmail.com>
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+Trying to open interface 1 on 005
+rf2500: warning: can't detach kernel driver: No such file or directory
+Initializing FET...
+FET protocol version is 30394216
+Set Vcc: 3000 mV
+Configured for Spy-Bi-Wire
+fet: FET returned error code 4 (Could not find device or device not supported)
+fet: command C_IDENT1 failed
+fet: identify failed
+Trying again...
+Initializing FET...
+FET protocol version is 30394216
+Set Vcc: 3000 mV
+Configured for Spy-Bi-Wire
+Sending reset...
+Device ID: 0x2553
+  Code start address: 0xc000
+  Code size         : 16384 byte = 16 kb
+  RAM  start address: 0x200
+  RAM  end   address: 0x3ff
+  RAM  size         : 512 byte = 0 kb
+Device: MSP430G2553/G2403
+Number of breakpoints: 2
+fet: FET returned NAK
+warning: device does not support power profiling
+Chip ID data: 25 53
+Erasing...
+Programming...
+Writing    2 bytes at ffe4 [section: __interrupt_vector_3]...
+Writing    2 bytes at fffe [section: __reset_vector]...
+Writing    4 bytes at c000 [section: .rodata2]...
+Writing  878 bytes at c004 [section: .text]...
+Writing    6 bytes at c372 [section: .data]...
+Done, 892 bytes total
+~/Desktop/arch1-project2-jahinojos2/project/toy $ make load
+msp430-elf-gcc -mmcu=msp430g2553 -I../h   -c -o p2_interrupt_handler.o p2_interrupt_handler.c
+msp430-elf-gcc -mmcu=msp430g2553 -I../h   -c -o led.o led.c
+msp430-elf-gcc -mmcu=msp430g2553 -I../h -L/opt/ti/msp430_gcc/include -o button.elf p2_interrupt_handler.o led.o switches.o main.o ../lib/libTimer.a
+msp430loader.sh button.elf
+check Bus 002 Device 005: ID 0451:f432 Texas Instruments, Inc. eZ430 Development Tool
+Detected ez430 dev kit
+mspdebug rf2500 "prog  button.elf "
+MSPDebug version 0.21 - debugging tool for MSP430 MCUs
+Copyright (C) 2009-2012 Daniel Beer <dlbeer@gmail.com>
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+Trying to open interface 1 on 005
+rf2500: warning: can't detach kernel driver: No such file or directory
+Initializing FET...
+FET protocol version is 30394216
+Set Vcc: 3000 mV
+Configured for Spy-Bi-Wire
+fet: FET returned error code 4 (Could not find device or device not supported)
+fet: command C_IDENT1 failed
+fet: identify failed
+Trying again...
+Initializing FET...
+FET protocol version is 30394216
+Set Vcc: 3000 mV
+Configured for Spy-Bi-Wire
+Sending reset...
+Device ID: 0x2553
+  Code start address: 0xc000
+  Code size         : 16384 byte = 16 kb
+  RAM  start address: 0x200
+  RAM  end   address: 0x3ff
+  RAM  size         : 512 byte = 0 kb
+Device: MSP430G2553/G2403
+Number of breakpoints: 2
+fet: FET returned NAK
+warning: device does not support power profiling
+Chip ID data: 25 53
+Erasing...
+Programming...
+Writing    2 bytes at ffe6 [section: __interrupt_vector_4]...
+Writing    2 bytes at fffe [section: __reset_vector]...
+Writing    4 bytes at c000 [section: .rodata2]...
+Writing  982 bytes at c004 [section: .text]...
+Done, 990 bytes total
+~/Desktop/arch1-project2-jahinojos2/project/toy $ make load
+msp430-elf-gcc -mmcu=msp430g2553 -I../h   -c -o led.o led.c
+led.c:26:3: warning: data definition has no type or storage class
+   switch_state_changed = 0;
+   ^~~~~~~~~~~~~~~~~~~~
+led.c:26:3: warning: type defaults to 'int' in declaration of 'switch_state_changed' [-Wimplicit-int]
+led.c:26:3: error: conflicting types for 'switch_state_changed'
+In file included from led.c:3:
+switches.h:16:13: note: previous declaration of 'switch_state_changed' was here
+ extern char switch_state_changed;
+             ^~~~~~~~~~~~~~~~~~~~
+led.c:27:1: error: expected identifier or '(' before '}' token
+ }
+ ^
+make: *** [<builtin>: led.o] Error 1
+~/Desktop/arch1-project2-jahinojos2/project/toy $ make load
+msp430-elf-gcc -mmcu=msp430g2553 -I../h   -c -o led.o led.c
+msp430-elf-gcc -mmcu=msp430g2553 -I../h -L/opt/ti/msp430_gcc/include -o button.elf p2_interrupt_handler.o led.o switches.o main.o ../lib/libTimer.a
+msp430loader.sh button.elf
+check Bus 002 Device 005: ID 0451:f432 Texas Instruments, Inc. eZ430 Development Tool
+Detected ez430 dev kit
+mspdebug rf2500 "prog  button.elf "
+MSPDebug version 0.21 - debugging tool for MSP430 MCUs
+Copyright (C) 2009-2012 Daniel Beer <dlbeer@gmail.com>
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+Trying to open interface 1 on 005
+rf2500: warning: can't detach kernel driver: No such file or directory
+Initializing FET...
+FET protocol version is 30394216
+Set Vcc: 3000 mV
+Configured for Spy-Bi-Wire
+fet: FET returned error code 4 (Could not find device or device not supported)
+fet: command C_IDENT1 failed
+fet: identify failed
+Trying again...
+Initializing FET...
+FET protocol version is 30394216
+Set Vcc: 3000 mV
+Configured for Spy-Bi-Wire
+Sending reset...
+Device ID: 0x2553
+  Code start address: 0xc000
+  Code size         : 16384 byte = 16 kb
+  RAM  start address: 0x200
+  RAM  end   address: 0x3ff
+  RAM  size         : 512 byte = 0 kb
+Device: MSP430G2553/G2403
+Number of breakpoints: 2
+fet: FET returned NAK
+warning: device does not support power profiling
+Chip ID data: 25 53
+Erasing...
+Programming...
+Writing    2 bytes at ffe6 [section: __interrupt_vector_4]...
+Writing    2 bytes at fffe [section: __reset_vector]...
+Writing    4 bytes at c000 [section: .rodata2]...
+Writing  982 bytes at c004 [section: .text]...
+Done, 990 bytes total
+~/Desktop/arch1-project2-jahinojos2/project/toy $ make load
+msp430-elf-gcc -mmcu=msp430g2553 -I../h   -c -o led.o led.c
+msp430-elf-gcc -mmcu=msp430g2553 -I../h -L/opt/ti/msp430_gcc/include -o button.elf p2_interrupt_handler.o led.o switches.o main.o ../lib/libTimer.a
+msp430loader.sh button.elf
+check Bus 002 Device 005: ID 0451:f432 Texas Instruments, Inc. eZ430 Development Tool
+Detected ez430 dev kit
+mspdebug rf2500 "prog  button.elf "
+MSPDebug version 0.21 - debugging tool for MSP430 MCUs
+Copyright (C) 2009-2012 Daniel Beer <dlbeer@gmail.com>
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+Trying to open interface 1 on 005
+rf2500: warning: can't detach kernel driver: No such file or directory
+Initializing FET...
+FET protocol version is 30394216
+Set Vcc: 3000 mV
+Configured for Spy-Bi-Wire
+fet: FET returned error code 4 (Could not find device or device not supported)
+fet: command C_IDENT1 failed
+fet: identify failed
+Trying again...
+Initializing FET...
+FET protocol version is 30394216
+Set Vcc: 3000 mV
+Configured for Spy-Bi-Wire
+Sending reset...
+Device ID: 0x2553
+  Code start address: 0xc000
+  Code size         : 16384 byte = 16 kb
+  RAM  start address: 0x200
+  RAM  end   address: 0x3ff
+  RAM  size         : 512 byte = 0 kb
+Device: MSP430G2553/G2403
+Number of breakpoints: 2
+fet: FET returned NAK
+warning: device does not support power profiling
+Chip ID data: 25 53
+Erasing...
+Programming...
+Writing    2 bytes at ffe6 [section: __interrupt_vector_4]...
+Writing    2 bytes at fffe [section: __reset_vector]...
+Writing    4 bytes at c000 [section: .rodata2]...
+Writing  990 bytes at c004 [section: .text]...
+Done, 998 bytes total
+~/Desktop/arch1-project2-jahinojos2/project/toy $ make load
+msp430-elf-gcc -mmcu=msp430g2553 -I../h   -c -o led.o led.c
+msp430-elf-gcc -mmcu=msp430g2553 -I../h -L/opt/ti/msp430_gcc/include -o button.elf p2_interrupt_handler.o led.o switches.o main.o ../lib/libTimer.a
+msp430loader.sh button.elf
+check Bus 002 Device 005: ID 0451:f432 Texas Instruments, Inc. eZ430 Development Tool
+Detected ez430 dev kit
+mspdebug rf2500 "prog  button.elf "
+MSPDebug version 0.21 - debugging tool for MSP430 MCUs
+Copyright (C) 2009-2012 Daniel Beer <dlbeer@gmail.com>
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+Trying to open interface 1 on 005
+rf2500: warning: can't detach kernel driver: No such file or directory
+Initializing FET...
+FET protocol version is 30394216
+Set Vcc: 3000 mV
+Configured for Spy-Bi-Wire
+fet: FET returned error code 4 (Could not find device or device not supported)
+fet: command C_IDENT1 failed
+fet: identify failed
+Trying again...
+Initializing FET...
+FET protocol version is 30394216
+Set Vcc: 3000 mV
+Configured for Spy-Bi-Wire
+Sending reset...
+Device ID: 0x2553
+  Code start address: 0xc000
+  Code size         : 16384 byte = 16 kb
+  RAM  start address: 0x200
+  RAM  end   address: 0x3ff
+  RAM  size         : 512 byte = 0 kb
+Device: MSP430G2553/G2403
+Number of breakpoints: 2
+fet: FET returned NAK
+warning: device does not support power profiling
+Chip ID data: 25 53
+Erasing...
+Programming...
+Writing    2 bytes at ffe6 [section: __interrupt_vector_4]...
+Writing    2 bytes at fffe [section: __reset_vector]...
+Writing    4 bytes at c000 [section: .rodata2]...
+Writing  894 bytes at c004 [section: .text]...
+Done, 902 bytes total
+~/Desktop/arch1-project2-jahinojos2/project/toy $ make load
+msp430-elf-gcc -mmcu=msp430g2553 -I../h   -c -o led.o led.c
+msp430-elf-gcc -mmcu=msp430g2553 -I../h -L/opt/ti/msp430_gcc/include -o button.elf p2_interrupt_handler.o led.o switches.o main.o ../lib/libTimer.a
+msp430loader.sh button.elf
+check Bus 002 Device 005: ID 0451:f432 Texas Instruments, Inc. eZ430 Development Tool
+Detected ez430 dev kit
+mspdebug rf2500 "prog  button.elf "
+MSPDebug version 0.21 - debugging tool for MSP430 MCUs
+Copyright (C) 2009-2012 Daniel Beer <dlbeer@gmail.com>
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+Trying to open interface 1 on 005
+rf2500: warning: can't detach kernel driver: No such file or directory
+Initializing FET...
+FET protocol version is 30394216
+Set Vcc: 3000 mV
+Configured for Spy-Bi-Wire
+fet: FET returned error code 4 (Could not find device or device not supported)
+fet: command C_IDENT1 failed
+fet: identify failed
+Trying again...
+Initializing FET...
+FET protocol version is 30394216
+Set Vcc: 3000 mV
+Configured for Spy-Bi-Wire
+Sending reset...
+Device ID: 0x2553
+  Code start address: 0xc000
+  Code size         : 16384 byte = 16 kb
+  RAM  start address: 0x200
+  RAM  end   address: 0x3ff
+  RAM  size         : 512 byte = 0 kb
+Device: MSP430G2553/G2403
+Number of breakpoints: 2
+fet: FET returned NAK
+warning: device does not support power profiling
+Chip ID data: 25 53
+Erasing...
+Programming...
+Writing    2 bytes at ffe6 [section: __interrupt_vector_4]...
+Writing    2 bytes at fffe [section: __reset_vector]...
+Writing    4 bytes at c000 [section: .rodata2]...
+Writing  956 bytes at c004 [section: .text]...
+Done, 964 bytes total
+~/Desktop/arch1-project2-jahinojos2/project/toy $ make load
+msp430-elf-gcc -mmcu=msp430g2553 -I../h   -c -o led.o led.c
+msp430-elf-gcc -mmcu=msp430g2553 -I../h -L/opt/ti/msp430_gcc/include -o button.elf p2_interrupt_handler.o led.o switches.o main.o ../lib/libTimer.a
+msp430loader.sh button.elf
+check Bus 002 Device 005: ID 0451:f432 Texas Instruments, Inc. eZ430 Development Tool
+Detected ez430 dev kit
+mspdebug rf2500 "prog  button.elf "
+MSPDebug version 0.21 - debugging tool for MSP430 MCUs
+Copyright (C) 2009-2012 Daniel Beer <dlbeer@gmail.com>
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+Trying to open interface 1 on 005
+rf2500: warning: can't detach kernel driver: No such file or directory
+Initializing FET...
+FET protocol version is 30394216
+Set Vcc: 3000 mV
+Configured for Spy-Bi-Wire
+fet: FET returned error code 4 (Could not find device or device not supported)
+fet: command C_IDENT1 failed
+fet: identify failed
+Trying again...
+Initializing FET...
+FET protocol version is 30394216
+Set Vcc: 3000 mV
+Configured for Spy-Bi-Wire
+Sending reset...
+Device ID: 0x2553
+  Code start address: 0xc000
+  Code size         : 16384 byte = 16 kb
+  RAM  start address: 0x200
+  RAM  end   address: 0x3ff
+  RAM  size         : 512 byte = 0 kb
+Device: MSP430G2553/G2403
+Number of breakpoints: 2
+fet: FET returned NAK
+warning: device does not support power profiling
+Chip ID data: 25 53
+Erasing...
+Programming...
+Writing    2 bytes at ffe6 [section: __interrupt_vector_4]...
+Writing    2 bytes at fffe [section: __reset_vector]...
+Writing    4 bytes at c000 [section: .rodata2]...
+Writing  866 bytes at c004 [section: .text]...
+Done, 874 bytes total
+~/Desktop/arch1-project2-jahinojos2/project/toy $ make load
+msp430-elf-gcc -mmcu=msp430g2553 -I../h   -c -o led.o led.c
+msp430-elf-gcc -mmcu=msp430g2553 -I../h -L/opt/ti/msp430_gcc/include -o button.elf p2_interrupt_handler.o led.o switches.o main.o ../lib/libTimer.a
+msp430loader.sh button.elf
+check Bus 002 Device 005: ID 0451:f432 Texas Instruments, Inc. eZ430 Development Tool
+Detected ez430 dev kit
+mspdebug rf2500 "prog  button.elf "
+MSPDebug version 0.21 - debugging tool for MSP430 MCUs
+Copyright (C) 2009-2012 Daniel Beer <dlbeer@gmail.com>
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+Trying to open interface 1 on 005
+rf2500: warning: can't detach kernel driver: No such file or directory
+Initializing FET...
+FET protocol version is 30394216
+Set Vcc: 3000 mV
+Configured for Spy-Bi-Wire
+fet: FET returned error code 4 (Could not find device or device not supported)
+fet: command C_IDENT1 failed
+fet: identify failed
+Trying again...
+Initializing FET...
+FET protocol version is 30394216
+Set Vcc: 3000 mV
+Configured for Spy-Bi-Wire
+Sending reset...
+Device ID: 0x2553
+  Code start address: 0xc000
+  Code size         : 16384 byte = 16 kb
+  RAM  start address: 0x200
+  RAM  end   address: 0x3ff
+  RAM  size         : 512 byte = 0 kb
+Device: MSP430G2553/G2403
+Number of breakpoints: 2
+fet: FET returned NAK
+warning: device does not support power profiling
+Chip ID data: 25 53
+Erasing...
+Programming...
+Writing    2 bytes at ffe6 [section: __interrupt_vector_4]...
+Writing    2 bytes at fffe [section: __reset_vector]...
+Writing    4 bytes at c000 [section: .rodata2]...
+Writing  894 bytes at c004 [section: .text]...
+Done, 902 bytes total
+~/Desktop/arch1-project2-jahinojos2/project/toy $ make load
+msp430-elf-gcc -mmcu=msp430g2553 -I../h   -c -o led.o led.c
+msp430-elf-gcc -mmcu=msp430g2553 -I../h -L/opt/ti/msp430_gcc/include -o button.elf p2_interrupt_handler.o led.o switches.o main.o ../lib/libTimer.a
+msp430loader.sh button.elf
+check Bus 002 Device 005: ID 0451:f432 Texas Instruments, Inc. eZ430 Development Tool
+Detected ez430 dev kit
+mspdebug rf2500 "prog  button.elf "
+MSPDebug version 0.21 - debugging tool for MSP430 MCUs
+Copyright (C) 2009-2012 Daniel Beer <dlbeer@gmail.com>
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+Trying to open interface 1 on 005
+rf2500: warning: can't detach kernel driver: No such file or directory
+Initializing FET...
+FET protocol version is 30394216
+Set Vcc: 3000 mV
+Configured for Spy-Bi-Wire
+fet: FET returned error code 4 (Could not find device or device not supported)
+fet: command C_IDENT1 failed
+fet: identify failed
+Trying again...
+Initializing FET...
+FET protocol version is 30394216
+Set Vcc: 3000 mV
+Configured for Spy-Bi-Wire
+Sending reset...
+Device ID: 0x2553
+  Code start address: 0xc000
+  Code size         : 16384 byte = 16 kb
+  RAM  start address: 0x200
+  RAM  end   address: 0x3ff
+  RAM  size         : 512 byte = 0 kb
+Device: MSP430G2553/G2403
+Number of breakpoints: 2
+fet: FET returned NAK
+warning: device does not support power profiling
+Chip ID data: 25 53
+Erasing...
+Programming...
+Writing    2 bytes at ffe6 [section: __interrupt_vector_4]...
+Writing    2 bytes at fffe [section: __reset_vector]...
+Writing    4 bytes at c000 [section: .rodata2]...
+Writing  866 bytes at c004 [section: .text]...
+Done, 874 bytes total
+~/Desktop/arch1-project2-jahinojos2/project/toy $ make load
+msp430-elf-gcc -mmcu=msp430g2553 -I../h   -c -o led.o led.c
+msp430-elf-gcc -mmcu=msp430g2553 -I../h -L/opt/ti/msp430_gcc/include -o button.elf p2_interrupt_handler.o led.o switches.o main.o ../lib/libTimer.a
+msp430loader.sh button.elf
+check Bus 002 Device 005: ID 0451:f432 Texas Instruments, Inc. eZ430 Development Tool
+Detected ez430 dev kit
+mspdebug rf2500 "prog  button.elf "
+MSPDebug version 0.21 - debugging tool for MSP430 MCUs
+Copyright (C) 2009-2012 Daniel Beer <dlbeer@gmail.com>
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+Trying to open interface 1 on 005
+rf2500: warning: can't detach kernel driver: No such file or directory
+Initializing FET...
+FET protocol version is 30394216
+Set Vcc: 3000 mV
+Configured for Spy-Bi-Wire
+fet: FET returned error code 4 (Could not find device or device not supported)
+fet: command C_IDENT1 failed
+fet: identify failed
+Trying again...
+Initializing FET...
+FET protocol version is 30394216
+Set Vcc: 3000 mV
+Configured for Spy-Bi-Wire
+Sending reset...
+Device ID: 0x2553
+  Code start address: 0xc000
+  Code size         : 16384 byte = 16 kb
+  RAM  start address: 0x200
+  RAM  end   address: 0x3ff
+  RAM  size         : 512 byte = 0 kb
+Device: MSP430G2553/G2403
+Number of breakpoints: 2
+fet: FET returned NAK
+warning: device does not support power profiling
+Chip ID data: 25 53
+Erasing...
+Programming...
+Writing    2 bytes at ffe6 [section: __interrupt_vector_4]...
+Writing    2 bytes at fffe [section: __reset_vector]...
+Writing    4 bytes at c000 [section: .rodata2]...
+Writing  894 bytes at c004 [section: .text]...
+Done, 902 bytes total
+~/Desktop/arch1-project2-jahinojos2/project/toy $ make load
+msp430-elf-gcc -mmcu=msp430g2553 -I../h   -c -o led.o led.c
+msp430-elf-gcc -mmcu=msp430g2553 -I../h -L/opt/ti/msp430_gcc/include -o button.elf p2_interrupt_handler.o led.o switches.o main.o ../lib/libTimer.a
+msp430loader.sh button.elf
+check Bus 002 Device 005: ID 0451:f432 Texas Instruments, Inc. eZ430 Development Tool
+Detected ez430 dev kit
+mspdebug rf2500 "prog  button.elf "
+MSPDebug version 0.21 - debugging tool for MSP430 MCUs
+Copyright (C) 2009-2012 Daniel Beer <dlbeer@gmail.com>
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+Trying to open interface 1 on 005
+rf2500: warning: can't detach kernel driver: No such file or directory
+Initializing FET...
+FET protocol version is 30394216
+Set Vcc: 3000 mV
+Configured for Spy-Bi-Wire
+fet: FET returned error code 4 (Could not find device or device not supported)
+fet: command C_IDENT1 failed
+fet: identify failed
+Trying again...
+Initializing FET...
+FET protocol version is 30394216
+Set Vcc: 3000 mV
+Configured for Spy-Bi-Wire
+Sending reset...
+Device ID: 0x2553
+  Code start address: 0xc000
+  Code size         : 16384 byte = 16 kb
+  RAM  start address: 0x200
+  RAM  end   address: 0x3ff
+  RAM  size         : 512 byte = 0 kb
+Device: MSP430G2553/G2403
+Number of breakpoints: 2
+fet: FET returned NAK
+warning: device does not support power profiling
+Chip ID data: 25 53
+Erasing...
+Programming...
+Writing    2 bytes at ffe6 [section: __interrupt_vector_4]...
+Writing    2 bytes at fffe [section: __reset_vector]...
+Writing    4 bytes at c000 [section: .rodata2]...
+Writing  910 bytes at c004 [section: .text]...
+Done, 918 bytes total
+~/Desktop/arch1-project2-jahinojos2/project/toy $ make load
+msp430-elf-gcc -mmcu=msp430g2553 -I../h   -c -o led.o led.c
+msp430-elf-gcc -mmcu=msp430g2553 -I../h -L/opt/ti/msp430_gcc/include -o button.elf p2_interrupt_handler.o led.o switches.o main.o ../lib/libTimer.a
+msp430loader.sh button.elf
+check Bus 002 Device 005: ID 0451:f432 Texas Instruments, Inc. eZ430 Development Tool
+Detected ez430 dev kit
+mspdebug rf2500 "prog  button.elf "
+MSPDebug version 0.21 - debugging tool for MSP430 MCUs
+Copyright (C) 2009-2012 Daniel Beer <dlbeer@gmail.com>
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+Trying to open interface 1 on 005
+rf2500: warning: can't detach kernel driver: No such file or directory
+Initializing FET...
+FET protocol version is 30394216
+Set Vcc: 3000 mV
+Configured for Spy-Bi-Wire
+fet: FET returned error code 4 (Could not find device or device not supported)
+fet: command C_IDENT1 failed
+fet: identify failed
+Trying again...
+Initializing FET...
+FET protocol version is 30394216
+Set Vcc: 3000 mV
+Configured for Spy-Bi-Wire
+Sending reset...
+Device ID: 0x2553
+  Code start address: 0xc000
+  Code size         : 16384 byte = 16 kb
+  RAM  start address: 0x200
+  RAM  end   address: 0x3ff
+  RAM  size         : 512 byte = 0 kb
+Device: MSP430G2553/G2403
+Number of breakpoints: 2
+fet: FET returned NAK
+warning: device does not support power profiling
+Chip ID data: 25 53
+Erasing...
+Programming...
+Writing    2 bytes at ffe6 [section: __interrupt_vector_4]...
+Writing    2 bytes at fffe [section: __reset_vector]...
+Writing    4 bytes at c000 [section: .rodata2]...
+Writing  926 bytes at c004 [section: .text]...
+Done, 934 bytes total
+~/Desktop/arch1-project2-jahinojos2/project/toy $ make load
+msp430-elf-gcc -mmcu=msp430g2553 -I../h   -c -o led.o led.c
+msp430-elf-gcc -mmcu=msp430g2553 -I../h -L/opt/ti/msp430_gcc/include -o button.elf p2_interrupt_handler.o led.o switches.o main.o ../lib/libTimer.a
+msp430loader.sh button.elf
+check Bus 002 Device 005: ID 0451:f432 Texas Instruments, Inc. eZ430 Development Tool
+Detected ez430 dev kit
+mspdebug rf2500 "prog  button.elf "
+MSPDebug version 0.21 - debugging tool for MSP430 MCUs
+Copyright (C) 2009-2012 Daniel Beer <dlbeer@gmail.com>
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+Trying to open interface 1 on 005
+rf2500: warning: can't detach kernel driver: No such file or directory
+Initializing FET...
+FET protocol version is 30394216
+Set Vcc: 3000 mV
+Configured for Spy-Bi-Wire
+fet: FET returned error code 4 (Could not find device or device not supported)
+fet: command C_IDENT1 failed
+fet: identify failed
+Trying again...
+Initializing FET...
+FET protocol version is 30394216
+Set Vcc: 3000 mV
+Configured for Spy-Bi-Wire
+Sending reset...
+Device ID: 0x2553
+  Code start address: 0xc000
+  Code size         : 16384 byte = 16 kb
+  RAM  start address: 0x200
+  RAM  end   address: 0x3ff
+  RAM  size         : 512 byte = 0 kb
+Device: MSP430G2553/G2403
+Number of breakpoints: 2
+fet: FET returned NAK
+warning: device does not support power profiling
+Chip ID data: 25 53
+Erasing...
+Programming...
+Writing    2 bytes at ffe6 [section: __interrupt_vector_4]...
+Writing    2 bytes at fffe [section: __reset_vector]...
+Writing    4 bytes at c000 [section: .rodata2]...
+Writing  958 bytes at c004 [section: .text]...
+Done, 966 bytes total
+~/Desktop/arch1-project2-jahinojos2/project/toy $ make load
+msp430loader.sh button.elf
+check Bus 002 Device 005: ID 0451:f432 Texas Instruments, Inc. eZ430 Development Tool
+Detected ez430 dev kit
+mspdebug rf2500 "prog  button.elf "
+MSPDebug version 0.21 - debugging tool for MSP430 MCUs
+Copyright (C) 2009-2012 Daniel Beer <dlbeer@gmail.com>
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+Trying to open interface 1 on 005
+rf2500: warning: can't detach kernel driver: No such file or directory
+Initializing FET...
+FET protocol version is 30394216
+Set Vcc: 3000 mV
+Configured for Spy-Bi-Wire
+fet: FET returned error code 4 (Could not find device or device not supported)
+fet: command C_IDENT1 failed
+fet: identify failed
+Trying again...
+Initializing FET...
+FET protocol version is 30394216
+Set Vcc: 3000 mV
+Configured for Spy-Bi-Wire
+Sending reset...
+Device ID: 0x2553
+  Code start address: 0xc000
+  Code size         : 16384 byte = 16 kb
+  RAM  start address: 0x200
+  RAM  end   address: 0x3ff
+  RAM  size         : 512 byte = 0 kb
+Device: MSP430G2553/G2403
+Number of breakpoints: 2
+fet: FET returned NAK
+warning: device does not support power profiling
+Chip ID data: 25 53
+Erasing...
+Programming...
+Writing    2 bytes at ffe6 [section: __interrupt_vector_4]...
+Writing    2 bytes at fffe [section: __reset_vector]...
+Writing    4 bytes at c000 [section: .rodata2]...
+Writing  958 bytes at c004 [section: .text]...
+Done, 966 bytes total
+~/Desktop/arch1-project2-jahinojos2/project/toy $ 
