@@ -1,4 +1,4 @@
-#include <msp430>
+#include <msp430.h>
 #include "libTimer.h"
 #include "buzzer.h"
 

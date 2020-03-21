@@ -15,16 +15,40 @@ void led_init(){
 void led_update(){
   if(switch_state_changed){
     char ledFlags = 0;
-    if(s1_down){ 
-      ledFlags |= s1_down ? LED_RED: 1;
-      
+    if(s1_down){
+      if(green){
+	ledFlags |= s1_down ? 0:LED_RED;
+	green = 0;
+      }else{	
+	ledFlags |= s1_down ? LED_RED: 1;
+	green = 1;
+      }
+      red = 0;
     }
     else if(s2_down){
-      ledFlags |= s2_down ? LED_GREEN:1;
+      if(red){
+	ledFlags |= s2_down ? 0:LED_GREEN;
+	red=0;
+      }else{	
+	ledFlags |= s2_down ? LED_GREEN:1;
+	red = 1;
+      }
     }
     else if(s3_down){
-      ledFlags |= s3_down ? LED_GREEN:1;
-      ledFlags |= s3_down ? LED_RED:1;
+      if(green == 1 && red == 1){
+	ledFlags |= s3_down ? 0:LED_GREEN;
+	ledFlags |= s3_down ? 0:LED_RED;
+	red = 0;
+	green = 1;
+      }else{
+	ledFlags |= s3_down ? LED_GREEN:1;
+	ledFlags |= s3_down ? LED_RED:1;
+	red = 1;
+	green = 1;
+      }
+    }else if(s4_down){
+      ledFlags |= s4_down ? 0:LED_GREEN;
+      ledFlags |= s4_down ? 0:LED_RED;
     }
     P1OUT &= (0xff - LEDS);
     P1OUT |= ledFlags;
