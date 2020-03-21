@@ -4,7 +4,7 @@
 #include "led.h"
 #include "buzzer.h"
 
-void main(void){
+void main(void){//initializes the msp430 board
   configureClocks();
   switch_init();
   led_init();

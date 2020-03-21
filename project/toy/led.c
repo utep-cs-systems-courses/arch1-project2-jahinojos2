@@ -6,13 +6,13 @@
 unsigned char green = 0, red = 0; 
 static char redVal[] = {0, LED_RED}, greenVal[] = {LED_GREEN, 0};
 
-void led_init(){
+void led_init(){//initializes the led lights on the board to p1.0 and p1.6
   P1DIR |= LEDS;
   switch_state_changed = 1;
   led_update();
 }
 
-void led_update(){
+void led_update(){// depending on what button is pressed certain lights will be on or off.
   if(switch_state_changed){
     char ledFlags = 0;
     if(s1_down){
