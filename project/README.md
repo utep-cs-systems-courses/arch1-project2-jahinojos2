@@ -16,13 +16,15 @@ To initialize the msp430 follow the next steps
    * this should initiate the board and the program should be up and running
    * if you want to erase the boards programming go ahead and type msp430 f2500
    "erase"
+   
 
 What you are able to do:
-     * Press S1 continously and green light turns on and of periodically while
+
+   * Press S1 and green light turns on and off periodically while
      making noise
-     * S2 is the same but it has a different noise and turns on the red light
-     * S3 will turn on both the green and red light and they will be turning on
-     and off periodically while you hold the button
-     * S4 turns off the light and emits a frequency itself.
+   * S2 is the same but it has a different noise and turns on the red light
+   * S3 will turn on both the green and red light and they will be turning on
+     and off periodically and emit noise
+   * S4 turns off the light and emits a frequency itself.
 
 Have Fun!
