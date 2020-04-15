@@ -1,9 +1,11 @@
 #Blinky Buzzy Toy
 
-For this Lab we were in charge of program he MSP430 for it to be able to,
+For this Lab we were in charge of programming the MSP430 for it to be able to,
 create sounds, change the led lights and program the speaker.
 
-To get started there are 7 .c files that make this lab up they are all linked
+To get started there are 6 .c files and 1 .s file written in assembly that
+will have the state machine set as a switch statement. The files that make up
+this lab are all linked
 together in order to be able to accomplish the over all goal. You have the
 main.c which initializes the msp430. along with the timerLIb files in order to
 keep the set timers for your msp430.
