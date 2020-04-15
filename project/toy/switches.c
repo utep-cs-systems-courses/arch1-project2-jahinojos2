@@ -5,6 +5,7 @@
 #include "buzzer.h"
 char s1_down, s2_down, s3_down, s4_down;
 char switch_state_changed;
+int x;
 
 static char switch_update_interrupt_sense(){
   char p1val = P2IN;
@@ -41,24 +42,28 @@ void switch_interrupt_handler(){
 
     switch_state_changed = 1;
     buzzer_set_period(250);
+    x = 1;
     led_update();
   }
   else if(s2_down){
 
     switch_state_changed = 1;
     buzzer_set_period(500);
+    x = 2;
     led_update();
   }
   else if(s3_down){
 
     switch_state_changed = 1;
     buzzer_set_period(750);
+    x = 3;
     led_update();
   }
   else if(s4_down){
 
     switch_state_changed = 1;
     buzzer_set_period(1000);
+    x = 4;
     led_update();
     
   }else;

@@ -15,4 +15,6 @@ extern char s1_down, s2_down, s3_down, s4_down;
 
 extern char switch_state_changed;
 
+extern int x;
+
 #endif
